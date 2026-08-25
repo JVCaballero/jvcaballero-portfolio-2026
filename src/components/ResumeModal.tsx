@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import {
   X,
   Download,
@@ -31,8 +32,14 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-[#191c1e]/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-surface-container-lowest border-2 border-primary w-full max-w-4xl max-h-[92vh] rounded-sm shadow-[16px_16px_0px_0px_#bae6fd] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/75 backdrop-blur-md">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className="bg-surface-container-lowest border-2 border-primary w-full max-w-4xl max-h-[92vh] rounded-xs shadow-[16px_16px_0px_0px_var(--shadow-cyan-drop)] flex flex-col overflow-hidden"
+      >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant bg-surface-container-low">
           <div className="flex items-center gap-2">
@@ -45,20 +52,24 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
           </div>
 
           <div className="flex items-center gap-3">
-            <button
+            <motion.button
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.94 }}
               onClick={() => window.print()}
-              className="px-3 py-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-xs font-mono text-primary rounded-xs flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-1 bg-surface-container-lowest border border-outline-variant hover:border-primary text-xs font-mono text-primary rounded-xs flex items-center gap-1.5 cursor-pointer shadow-xs transition-colors"
               title="Print / Save PDF"
             >
               <Download className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Print / PDF</span>
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ rotate: 90 }}
+              whileTap={{ scale: 0.88 }}
               onClick={onClose}
-              className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors cursor-pointer"
+              className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xs transition-colors cursor-pointer"
             >
               <X className="w-6 h-6" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -91,12 +102,23 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                 <span className="flex items-center gap-1">
                   <Globe className="w-3.5 h-3.5 text-primary" />
                   <a
-                    href="https://jvcaballero.github.io/JV_Portfolio"
+                    href="https://github.com/JVCaballero"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-primary underline"
                   >
-                    jvcaballero.github.io/JV_Portfolio
+                    github.com/JVCaballero
+                  </a>
+                </span>
+                <span className="flex items-center gap-1">
+                  <ExternalLink className="w-3.5 h-3.5 text-primary" />
+                  <a
+                    href="https://www.linkedin.com/in/john-vincent-c-06814b111"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-primary underline"
+                  >
+                    linkedin.com/in/john-vincent-c-06814b111
                   </a>
                 </span>
               </div>
@@ -259,7 +281,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
               <GraduationCap className="w-4 h-4 text-primary" />
               <span>EDUCATION</span>
             </h3>
-            <div className="p-4 bg-surface-container-low border border-outline-variant rounded-sm font-mono text-xs space-y-2">
+            <div className="p-4 bg-surface-container-low border border-outline-variant rounded-xs font-mono text-xs space-y-2">
               <div className="flex justify-between items-center font-bold text-sm text-on-surface">
                 <span>Associate in Computer Technology</span>
                 <span className="text-primary">2017 — 2020</span>
@@ -280,7 +302,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
               // SKILLS & TOOLS
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-sm space-y-1">
+              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-xs space-y-1">
                 <span className="text-primary font-bold block">LANGUAGES & FRONTEND</span>
                 <span className="text-on-surface-variant block">
                   JavaScript (ES6+), TypeScript, Python, PHP, SQL
@@ -290,7 +312,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                 </span>
               </div>
 
-              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-sm space-y-1">
+              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-xs space-y-1">
                 <span className="text-primary font-bold block">BACKEND, DATA & AI</span>
                 <span className="text-on-surface-variant block">
                   Python/Django, Node.js, REST APIs, PostgreSQL, Neon, DynamoDB
@@ -300,7 +322,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                 </span>
               </div>
 
-              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-sm space-y-1">
+              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-xs space-y-1">
                 <span className="text-primary font-bold block">TESTING, CLOUD & DEVOPS</span>
                 <span className="text-on-surface-variant block">
                   Playwright, Jest, Factory Boy, Vercel, AWS (EC2, Lightsail), GCP, Docker, CI/CD
@@ -310,7 +332,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
                 </span>
               </div>
 
-              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-sm space-y-1">
+              <div className="p-3.5 bg-surface-container-low border border-outline-variant rounded-xs space-y-1">
                 <span className="text-primary font-bold block">SOFT SKILLS & ARCHITECTURE</span>
                 <span className="text-on-surface-variant block">
                   Solo Ownership, Cross-Functional Delivery, Mentorship, Knowledge Transfer
@@ -327,18 +349,20 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({
             <div className="font-mono text-xs text-on-surface-variant">
               Talisay City, Cebu, Philippines • Available for Remote / Global Engineering Roles.
             </div>
-            <button
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 onClose();
                 onOpenHire();
               }}
-              className="px-6 py-2.5 bg-primary text-on-primary font-mono text-xs uppercase tracking-widest rounded-sm hover:bg-secondary-container hover:text-primary transition-all cursor-pointer"
+              className="px-6 py-2.5 bg-primary text-on-primary font-mono text-xs uppercase tracking-widest rounded-xs hover:bg-secondary-container hover:text-primary transition-all cursor-pointer font-bold shadow-xs"
             >
               Contact John Vincent ✦
-            </button>
+            </motion.button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

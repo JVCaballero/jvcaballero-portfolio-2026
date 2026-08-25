@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { useTheme } from '../context/ThemeContext';
 
 interface ThreeToonSceneProps {
   interactive?: boolean;
@@ -12,6 +13,7 @@ export const ThreeToonScene: React.FC<ThreeToonSceneProps> = ({
   className = 'w-full h-full',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const container = containerRef.current;
@@ -33,15 +35,24 @@ export const ThreeToonScene: React.FC<ThreeToonSceneProps> = ({
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    // Lighting (Theme-reactive)
+    const ambientLight = new THREE.AmbientLight(
+      isDark ? 0x1e293b : 0xffffff,
+      isDark ? 1.2 : 0.7
+    );
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
+    const dirLight1 = new THREE.DirectionalLight(
+      isDark ? 0x818cf8 : 0xffffff,
+      isDark ? 1.5 : 1.2
+    );
     dirLight1.position.set(5, 8, 6);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0xbae6fd, 0.8);
+    const dirLight2 = new THREE.DirectionalLight(
+      isDark ? 0x38bdf8 : 0xbae6fd,
+      isDark ? 1.1 : 0.8
+    );
     dirLight2.position.set(-5, -4, 4);
     scene.add(dirLight2);
 
@@ -49,24 +60,29 @@ export const ThreeToonScene: React.FC<ThreeToonSceneProps> = ({
     const group = new THREE.Group();
     scene.add(group);
 
-    // Toon Materials based on Design System (Indigo, Sky Blue, Magenta/Cyan Accent)
+    // Toon Materials based on Design System & Current Theme
+    const primaryColor = isDark ? 0x818cf8 : 0x3525cd;
+    const secondaryColor = isDark ? 0x6366f1 : 0x2e5bff;
+    const accentColor = isDark ? 0x38bdf8 : 0x0ea5e9;
+    const tertiaryColor = isDark ? 0xc084fc : 0x6366f1;
+
     const primaryMaterial = new THREE.MeshToonMaterial({
-      color: 0x3525cd,
+      color: primaryColor,
       wireframe: false,
     });
 
     const secondaryMaterial = new THREE.MeshToonMaterial({
-      color: 0x2e5bff,
+      color: secondaryColor,
       wireframe: false,
     });
 
     const accentMaterial = new THREE.MeshToonMaterial({
-      color: 0x0ea5e9, // Sky Cyan accent
+      color: accentColor,
       wireframe: false,
     });
 
-    const magentaMaterial = new THREE.MeshToonMaterial({
-      color: 0x6366f1,
+    const tertiaryMaterial = new THREE.MeshToonMaterial({
+      color: tertiaryColor,
       wireframe: false,
     });
 
@@ -104,7 +120,7 @@ export const ThreeToonScene: React.FC<ThreeToonSceneProps> = ({
           ? secondaryMaterial
           : matChoice === 2
           ? accentMaterial
-          : magentaMaterial;
+          : tertiaryMaterial;
 
       const mesh = new THREE.Mesh(geo, mat) as unknown as AnimatedMesh;
 
@@ -198,12 +214,12 @@ export const ThreeToonScene: React.FC<ThreeToonSceneProps> = ({
       primaryMaterial.dispose();
       secondaryMaterial.dispose();
       accentMaterial.dispose();
-      magentaMaterial.dispose();
+      tertiaryMaterial.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, [interactive]);
+  }, [interactive, isDark]);
 
   return <div ref={containerRef} className={className} id="threejs-canvas-wrapper" />;
 };

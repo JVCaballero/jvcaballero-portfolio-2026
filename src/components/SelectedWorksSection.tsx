@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Project } from '../types';
 import { PROJECTS_DATA } from '../data/portfolioData';
 import { Compass, ArrowUpRight, Sparkles, Filter, Layers } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 interface SelectedWorksSectionProps {
   onSelectProject: (project: Project) => void;
@@ -12,6 +13,7 @@ export const SelectedWorksSection: React.FC<SelectedWorksSectionProps> = ({
 }) => {
   const [activeFilter, setActiveFilter] = useState<string>('ALL');
   const [hoveredProjectId, setHoveredProjectId] = useState<string | null>(null);
+  const { isDark } = useTheme();
 
   const filters = ['ALL', 'NEXT.JS', 'PYTHON/DJANGO', 'N8N SYNC', 'PLAYWRIGHT QA', 'VUE 3'];
 
@@ -42,7 +44,7 @@ export const SelectedWorksSection: React.FC<SelectedWorksSectionProps> = ({
               Selected <br />
               <span className="relative inline-block">
                 Works
-                {/* Curved Cyan Ribbon Graphic Under 'Works' */}
+                {/* Curved Ribbon Graphic Under 'Works' */}
                 <svg
                   className="absolute -bottom-2 md:-bottom-3 left-0 w-full h-4 text-secondary-container"
                   viewBox="0 0 240 24"
@@ -52,13 +54,13 @@ export const SelectedWorksSection: React.FC<SelectedWorksSectionProps> = ({
                 >
                   <path
                     d="M3 14 C60 22 180 22 237 8"
-                    stroke="#bae6fd"
+                    stroke={isDark ? '#0284c7' : '#bae6fd'}
                     strokeWidth="10"
                     strokeLinecap="round"
                   />
                   <path
                     d="M3 14 C60 22 180 22 237 8"
-                    stroke="#3525cd"
+                    stroke="var(--color-primary)"
                     strokeWidth="2.5"
                     strokeLinecap="round"
                   />
@@ -97,7 +99,6 @@ export const SelectedWorksSection: React.FC<SelectedWorksSectionProps> = ({
 
         {/* Project Grid (Screen 5 Architecture) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14 items-start">
-          {/* Project 1: Synaptic Resonance (Col 1-7) */}
           {filteredProjects.map((project, index) => {
             const isOffset = project.offset;
 
@@ -113,8 +114,8 @@ export const SelectedWorksSection: React.FC<SelectedWorksSectionProps> = ({
                 onMouseEnter={() => setHoveredProjectId(project.id)}
                 onMouseLeave={() => setHoveredProjectId(null)}
               >
-                {/* 3D Tilted Card Container with Cyan Drop Shadow */}
-                <div className="bg-surface-container-lowest border border-primary p-5 md:p-7 rounded-sm shadow-[8px_8px_0px_0px_#bae6fd] md:shadow-[14px_14px_0px_0px_#bae6fd] group-hover:shadow-[18px_18px_0px_0px_#bae6fd] group-hover:-translate-y-1 transition-all duration-300 relative">
+                {/* 3D Tilted Card Container with Drop Shadow */}
+                <div className="bg-surface-container-lowest border border-primary p-5 md:p-7 rounded-sm shadow-[8px_8px_0px_0px_var(--shadow-cyan-drop)] md:shadow-[14px_14px_0px_0px_var(--shadow-cyan-drop)] group-hover:shadow-[18px_18px_0px_0px_var(--shadow-cyan-drop)] group-hover:-translate-y-1 transition-all duration-300 relative">
                   {/* Technical Card Header */}
                   <div className="flex items-center justify-between border-b border-outline-variant pb-3 mb-4 font-mono text-xs">
                     <span className="text-primary font-bold tracking-wider">
@@ -179,7 +180,7 @@ export const SelectedWorksSection: React.FC<SelectedWorksSectionProps> = ({
 
           {/* Fig. 01 Blueprint Drafting Quote Card (Screen 5 Element) */}
           <div className="lg:col-span-6 lg:translate-y-12">
-            <div className="bg-surface-container-lowest border border-primary p-7 md:p-9 rounded-sm shadow-[10px_10px_0px_0px_#bae6fd] relative overflow-hidden h-full flex flex-col justify-between">
+            <div className="bg-surface-container-lowest border border-primary p-7 md:p-9 rounded-sm shadow-[10px_10px_0px_0px_var(--shadow-cyan-drop)] relative overflow-hidden h-full flex flex-col justify-between">
               {/* Hatched Accent Backdrop */}
               <div className="absolute inset-0 bg-hatched opacity-60 pointer-events-none" />
 

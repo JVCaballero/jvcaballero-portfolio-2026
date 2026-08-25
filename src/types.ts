@@ -1,4 +1,4 @@
-export type ScreenView = 'all' | 'screen1-hero' | 'screen2-hero-alt' | 'screen3-about-labs' | 'screen4-contact' | 'screen5-works' | 'lab-sandbox';
+export type ScreenView = 'home' | 'case-studies' | 'projects' | 'about' | 'contact';
 
 export interface Project {
   id: string;

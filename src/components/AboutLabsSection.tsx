@@ -86,7 +86,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
 
           {/* Right Column: Technical Spec Wireframe Illustration */}
           <div className="lg:col-span-4 flex justify-center">
-            <div className="p-5 bg-surface-container-lowest border border-primary rounded-sm shadow-[8px_8px_0px_0px_#bae6fd] w-full max-w-sm relative">
+            <div className="p-5 bg-surface-container-lowest border border-primary rounded-sm shadow-[8px_8px_0px_0px_var(--shadow-cyan-drop)] w-full max-w-sm relative">
               <div className="font-mono text-[10px] uppercase text-primary border-b border-outline-variant pb-2 mb-3 flex justify-between">
                 <span>SPEC // ARCHITECTURE</span>
                 <span>VER 3.2.0</span>
@@ -121,7 +121,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Bento Card 1: React, Next.js & Vue 3 */}
-            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_#bae6fd] transition-all group relative overflow-hidden">
+            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_var(--shadow-cyan-drop)] transition-all group relative overflow-hidden">
               <div className="font-mono text-[10px] uppercase text-primary tracking-widest mb-3">
                 [CORE FRONTEND]
               </div>
@@ -137,7 +137,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
             </div>
 
             {/* Bento Card 2: Python/Django & Databases */}
-            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_#bae6fd] transition-all group relative overflow-hidden">
+            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_var(--shadow-cyan-drop)] transition-all group relative overflow-hidden">
               <div className="font-mono text-[10px] uppercase text-primary tracking-widest mb-3">
                 [BACKEND & STORAGE]
               </div>
@@ -153,7 +153,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
             </div>
 
             {/* Bento Card 3: AI & Workflow Automation */}
-            <div className="bg-surface-container-lowest border border-primary p-6 rounded-sm shadow-[6px_6px_0px_0px_#bae6fd] group relative overflow-hidden">
+            <div className="bg-surface-container-lowest border border-primary p-6 rounded-sm shadow-[6px_6px_0px_0px_var(--shadow-cyan-drop)] group relative overflow-hidden">
               <div className="flex justify-between items-start">
                 <div>
                   <div className="font-mono text-[10px] uppercase text-primary tracking-widest mb-3">
@@ -175,7 +175,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
             </div>
 
             {/* Bento Card 4: Playwright & Testing */}
-            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_#bae6fd] transition-all group">
+            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_var(--shadow-cyan-drop)] transition-all group">
               <div className="font-mono text-[10px] uppercase text-primary tracking-widest mb-3">
                 [TESTING & QA]
               </div>
@@ -191,7 +191,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
             </div>
 
             {/* Bento Card 5: Cloud, CI/CD & Monitoring */}
-            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_#bae6fd] transition-all group md:col-span-2">
+            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm hover:border-primary hover:shadow-[6px_6px_0px_0px_var(--shadow-cyan-drop)] transition-all group md:col-span-2">
               <div className="font-mono text-[10px] uppercase text-primary tracking-widest mb-3">
                 [INFRASTRUCTURE & MONITORING]
               </div>
@@ -226,7 +226,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
             {LAB_EXPERIMENTS.map((exp) => (
               <div
                 key={exp.id}
-                className="bg-surface-container-lowest border border-outline-variant hover:border-primary p-5 rounded-sm shadow-sm hover:shadow-[8px_8px_0px_0px_#bae6fd] transition-all group flex flex-col justify-between"
+                className="bg-surface-container-lowest border border-outline-variant hover:border-primary p-5 rounded-sm shadow-sm hover:shadow-[8px_8px_0px_0px_var(--shadow-cyan-drop)] transition-all group flex flex-col justify-between"
               >
                 <div>
                   {/* Card Header */}
@@ -246,7 +246,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
                       />
                       <button
                         onClick={() => onOpenLabExperiment(exp)}
-                        className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                        className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
                       >
                         <span className="px-3 py-1.5 bg-surface-container-lowest text-primary font-mono text-xs uppercase tracking-wider border border-primary shadow-sm flex items-center gap-1.5">
                           <Maximize2 className="w-3.5 h-3.5" />
@@ -255,7 +255,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
                       </button>
                     </div>
                   ) : (
-                    <div className="bg-[#191c1e] text-[#f7f9fb] p-3 rounded font-mono text-[11px] mb-4 overflow-x-auto border border-outline-variant max-h-40">
+                    <div className="bg-surface-container-low text-on-surface p-3 rounded font-mono text-[11px] mb-4 overflow-x-auto border border-outline-variant max-h-40">
                       <pre>
                         <code>{exp.codeSnippet}</code>
                       </pre>
@@ -275,7 +275,7 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
                 <div className="pt-4 mt-4 border-t border-outline-variant flex items-center justify-between">
                   <button
                     onClick={() => onOpenLabExperiment(exp)}
-                    className="font-mono text-xs text-primary font-semibold hover:underline flex items-center gap-1"
+                    className="font-mono text-xs text-primary font-semibold hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <span>LAUNCH LAB EXPERIMENT</span>
                     <ArrowRight className="w-3 h-3" />
@@ -283,8 +283,8 @@ export const AboutLabsSection: React.FC<AboutLabsSectionProps> = ({
 
                   <button
                     onClick={() => handleCopyCode(exp.id, exp.codeSnippet)}
-                    className="font-mono text-[10px] text-on-surface-variant hover:text-primary"
-                    title="Copy GLSL Snippet"
+                    className="font-mono text-[10px] text-on-surface-variant hover:text-primary cursor-pointer"
+                    title="Copy Snippet"
                   >
                     {copiedCodeId === exp.id ? 'COPIED ✓' : 'COPY CODE'}
                   </button>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
 import { LabExperiment } from '../types';
 import {
   X,
@@ -160,12 +161,18 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-[#191c1e]/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-surface-container-lowest border-2 border-primary w-full max-w-4xl max-h-[92vh] rounded-sm shadow-[16px_16px_0px_0px_#bae6fd] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/75 backdrop-blur-md">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className="bg-surface-container-lowest border-2 border-primary w-full max-w-4xl max-h-[92vh] rounded-xs shadow-[16px_16px_0px_0px_var(--shadow-cyan-drop)] flex flex-col overflow-hidden"
+      >
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant bg-surface-container-low">
           <div className="flex items-center gap-3">
-            <span className="px-2 py-0.5 bg-primary text-on-primary font-mono text-xs font-bold rounded-xs">
+            <span className="px-2 py-0.5 bg-primary text-on-primary font-mono text-xs font-bold rounded-xs shadow-xs">
               {experiment.expNumber}
             </span>
             <h3 className="font-display text-xl sm:text-2xl font-medium text-on-surface">
@@ -173,20 +180,22 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
             </h3>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ rotate: 90 }}
+            whileTap={{ scale: 0.88 }}
             onClick={onClose}
-            className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors cursor-pointer"
+            className="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xs transition-colors cursor-pointer"
             title="Close Experiment"
           >
             <X className="w-6 h-6" />
-          </button>
+          </motion.button>
         </div>
 
         {/* Tab Navigation */}
         <div className="flex border-b border-outline-variant px-6 bg-surface-container-lowest font-mono text-xs">
           <button
             onClick={() => setActiveTab('preview')}
-            className={`py-3 px-4 border-b-2 font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`py-3 px-4 border-b-2 font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer relative ${
               activeTab === 'preview'
                 ? 'border-primary text-primary'
                 : 'border-transparent text-on-surface-variant hover:text-primary'
@@ -198,7 +207,7 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
 
           <button
             onClick={() => setActiveTab('code')}
-            className={`py-3 px-4 border-b-2 font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`py-3 px-4 border-b-2 font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer relative ${
               activeTab === 'code'
                 ? 'border-primary text-primary'
                 : 'border-transparent text-on-surface-variant hover:text-primary'
@@ -210,7 +219,7 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
 
           <button
             onClick={() => setActiveTab('params')}
-            className={`py-3 px-4 border-b-2 font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`py-3 px-4 border-b-2 font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer relative ${
               activeTab === 'params'
                 ? 'border-primary text-primary'
                 : 'border-transparent text-on-surface-variant hover:text-primary'
@@ -229,7 +238,7 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
               {experiment.id === 'exp-001' && (
                 <div className="space-y-5">
                   {/* Controls */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-surface-container-low border border-outline-variant rounded-sm font-mono text-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-surface-container-low border border-outline-variant rounded-xs font-mono text-xs">
                     <div className="flex items-center gap-3">
                       <span className="text-on-surface-variant">
                         Persistent Watermark: <strong className="text-primary">{watermark}</strong>
@@ -237,26 +246,30 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <button
+                      <motion.button
+                        whileHover={{ y: -1 }}
+                        whileTap={{ scale: 0.94 }}
                         onClick={handleAddOutboxEvent}
-                        className="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:border-primary text-primary rounded-xs flex items-center gap-1 cursor-pointer"
+                        className="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:border-primary text-primary rounded-xs flex items-center gap-1 cursor-pointer font-semibold shadow-xs"
                       >
                         <span>+ Record Outbox Event</span>
-                      </button>
+                      </motion.button>
 
-                      <button
+                      <motion.button
+                        whileHover={{ y: -1 }}
+                        whileTap={{ scale: 0.94 }}
                         onClick={handleTriggerSync}
                         disabled={isSyncing}
-                        className="px-4 py-1.5 bg-primary text-on-primary rounded-xs font-bold hover:bg-secondary-container hover:text-primary transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                        className="px-4 py-1.5 bg-primary text-on-primary rounded-xs font-bold hover:bg-secondary-container hover:text-primary transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50 shadow-xs"
                       >
                         <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
                         <span>{isSyncing ? 'SYNCING QUEUE...' : 'DISPATCH TO N8N'}</span>
-                      </button>
+                      </motion.button>
                     </div>
                   </div>
 
                   {/* Outbox Table */}
-                  <div className="border border-outline-variant rounded-sm overflow-hidden bg-surface-container-lowest">
+                  <div className="border border-outline-variant rounded-xs overflow-hidden bg-surface-container-lowest">
                     <div className="px-4 py-2.5 bg-surface-container-low border-b border-outline-variant flex items-center justify-between font-mono text-xs font-bold text-primary">
                       <span className="flex items-center gap-2">
                         <Database className="w-4 h-4" />
@@ -267,11 +280,11 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
 
                     <div className="divide-y divide-outline-variant font-mono text-xs max-h-56 overflow-y-auto">
                       {outboxEvents.map((evt) => (
-                        <div key={evt.id} className="p-3 flex items-center justify-between hover:bg-surface-container/40">
+                        <div key={evt.id} className="p-3 flex items-center justify-between hover:bg-surface-container/40 transition-colors">
                           <div className="space-y-1">
                             <div className="flex items-center gap-2">
                               <span className="text-primary font-bold">{evt.id}</span>
-                              <span className="px-2 py-0.5 bg-surface-container text-on-surface-variant rounded text-[10px]">
+                              <span className="px-2 py-0.5 bg-surface-container text-on-surface-variant rounded-xs text-[10px]">
                                 {evt.type}
                               </span>
                               <span className="text-outline text-[11px]">{evt.timestamp}</span>
@@ -281,12 +294,12 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
 
                           <div>
                             {evt.status === 'SYNCED' ? (
-                              <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded font-bold text-[10px] flex items-center gap-1">
+                              <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-700 border border-emerald-300 rounded-xs font-bold text-[10px] flex items-center gap-1">
                                 <CheckCircle2 className="w-3 h-3" />
                                 <span>SYNCED // 200</span>
                               </span>
                             ) : (
-                              <span className="px-2.5 py-1 bg-amber-50 text-amber-700 border border-amber-300 rounded font-bold text-[10px] flex items-center gap-1 animate-pulse">
+                              <span className="px-2.5 py-1 bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-700 border border-amber-300 rounded-xs font-bold text-[10px] flex items-center gap-1 animate-pulse">
                                 <AlertCircle className="w-3 h-3" />
                                 <span>QUEUED</span>
                               </span>
@@ -298,13 +311,13 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
                   </div>
 
                   {/* Live Webhook Log Console */}
-                  <div className="bg-[#191c1e] text-[#bae6fd] p-4 rounded-sm font-mono text-xs space-y-1 border border-outline-variant max-h-40 overflow-y-auto">
-                    <div className="flex items-center justify-between pb-1 border-b border-neutral-800 text-neutral-400 text-[11px]">
+                  <div className="bg-surface-container-lowest text-on-surface p-4 rounded-xs font-mono text-xs space-y-1 border border-outline-variant max-h-40 overflow-y-auto shadow-xs">
+                    <div className="flex items-center justify-between pb-1 border-b border-outline-variant text-on-surface-variant text-[11px]">
                       <span className="flex items-center gap-1.5">
                         <Terminal className="w-3.5 h-3.5 text-primary" />
                         <span>N8N WEBHOOK DISPATCHER & AUDIT STREAM</span>
                       </span>
-                      <span>LIVE</span>
+                      <span className="text-emerald-500 font-bold">LIVE</span>
                     </div>
                     {syncLogs.map((log, idx) => (
                       <div key={idx} className="leading-relaxed opacity-90">
@@ -319,47 +332,50 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
               {experiment.id === 'exp-002' && (
                 <div className="space-y-5">
                   {/* Role Selector & Trigger */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-surface-container-low border border-outline-variant rounded-sm font-mono text-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-surface-container-low border border-outline-variant rounded-xs font-mono text-xs">
                     <div className="flex items-center gap-2">
                       <span className="text-on-surface-variant font-bold">TARGET ROLE:</span>
                       {(['STUDENT', 'PARENT', 'PRACTITIONER'] as const).map((r) => (
-                        <button
+                        <motion.button
                           key={r}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => setSelectedRole(r)}
-                          className={`px-3 py-1 rounded-xs uppercase tracking-wider transition-all cursor-pointer ${
+                          className={`px-3 py-1 rounded-xs uppercase tracking-wider transition-all cursor-pointer font-semibold ${
                             selectedRole === r
-                              ? 'bg-primary text-on-primary font-bold'
+                              ? 'bg-primary text-on-primary font-bold shadow-xs'
                               : 'bg-surface-container-lowest border border-outline-variant text-on-surface-variant hover:border-primary'
                           }`}
                         >
                           {r}
-                        </button>
+                        </motion.button>
                       ))}
                     </div>
 
-                    <button
+                    <motion.button
+                      whileHover={{ y: -1 }}
+                      whileTap={{ scale: 0.94 }}
                       onClick={handleRunPlaywright}
                       disabled={isRunningTests}
-                      className="px-5 py-2 bg-primary text-on-primary font-bold rounded-xs flex items-center gap-2 hover:bg-secondary-container hover:text-primary transition-all cursor-pointer disabled:opacity-50"
+                      className="px-5 py-2 bg-primary text-on-primary font-bold rounded-xs flex items-center gap-2 hover:bg-secondary-container hover:text-primary transition-all cursor-pointer disabled:opacity-50 shadow-xs"
                     >
                       <Play className={`w-4 h-4 ${isRunningTests ? 'animate-spin' : ''}`} />
                       <span>{isRunningTests ? 'RUNNING TEST MATRIX...' : 'RUN 180+ TEST SUITE'}</span>
-                    </button>
+                    </motion.button>
                   </div>
 
                   {/* Assertion Output List */}
-                  <div className="border border-outline-variant rounded-sm overflow-hidden bg-surface-container-lowest">
+                  <div className="border border-outline-variant rounded-xs overflow-hidden bg-surface-container-lowest">
                     <div className="px-4 py-2.5 bg-surface-container-low border-b border-outline-variant flex items-center justify-between font-mono text-xs font-bold text-primary">
                       <span className="flex items-center gap-2">
                         <ShieldCheck className="w-4 h-4" />
                         <span>EARLYBIRD PLAYWRIGHT E2E QA MATRIX // 180+ SUITES</span>
                       </span>
-                      <span className="text-emerald-700">100% GREEN</span>
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">100% GREEN</span>
                     </div>
 
                     <div className="divide-y divide-outline-variant font-mono text-xs">
                       {testResults.map((res, i) => (
-                        <div key={i} className="p-3.5 flex items-center justify-between hover:bg-surface-container/30">
+                        <div key={i} className="p-3.5 flex items-center justify-between hover:bg-surface-container/30 transition-colors">
                           <div className="flex items-center gap-3">
                             <span className="w-2 h-2 rounded-full bg-emerald-500" />
                             <span className="text-on-surface font-medium">{res.name}</span>
@@ -367,7 +383,7 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
 
                           <div className="flex items-center gap-3">
                             <span className="text-on-surface-variant text-[11px]">{res.duration}</span>
-                            <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">
+                            <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300 rounded-xs font-bold text-[10px]">
                               {res.status}
                             </span>
                           </div>
@@ -377,7 +393,7 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
                   </div>
 
                   {/* Debugging Evidence Logs */}
-                  <div className="p-4 bg-surface-container-low border border-outline-variant rounded-sm font-mono text-xs space-y-2">
+                  <div className="p-4 bg-surface-container-low border border-outline-variant rounded-xs font-mono text-xs space-y-2">
                     <div className="text-primary font-bold flex items-center gap-2">
                       <Cpu className="w-3.5 h-3.5" />
                       <span>EVIDENCE-FIRST WORKFLOW (HAR CAPTURES, ISOLATION TESTS, AWS LOGS)</span>
@@ -393,7 +409,7 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
               {experiment.id === 'exp-003' && (
                 <div className="space-y-5">
                   {/* Prompt Box */}
-                  <div className="p-4 bg-surface-container-low border border-outline-variant rounded-sm space-y-3 font-mono text-xs">
+                  <div className="p-4 bg-surface-container-low border border-outline-variant rounded-xs space-y-3 font-mono text-xs">
                     <div className="flex items-center justify-between">
                       <label className="text-primary font-bold flex items-center gap-2">
                         <Bot className="w-4 h-4" />
@@ -406,26 +422,28 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
                       rows={3}
                       value={promptInput}
                       onChange={(e) => setPromptInput(e.target.value)}
-                      className="w-full p-3 bg-surface-container-lowest border border-outline-variant rounded text-xs text-on-surface font-mono"
+                      className="w-full p-3 bg-surface-container-lowest border border-outline-variant rounded-xs text-xs text-on-surface font-mono focus:border-primary focus:outline-none transition-colors"
                     />
 
                     <div className="flex justify-end">
-                      <button
+                      <motion.button
+                        whileHover={{ y: -1 }}
+                        whileTap={{ scale: 0.94 }}
                         onClick={handleParsePrompt}
                         disabled={isParsingAi}
-                        className="px-5 py-2 bg-primary text-on-primary font-bold rounded-xs flex items-center gap-2 hover:bg-secondary-container hover:text-primary transition-all cursor-pointer disabled:opacity-50"
+                        className="px-5 py-2 bg-primary text-on-primary font-bold rounded-xs flex items-center gap-2 hover:bg-secondary-container hover:text-primary transition-all cursor-pointer disabled:opacity-50 shadow-xs"
                       >
                         <Sparkles className="w-4 h-4" />
                         <span>{isParsingAi ? 'EXTRACTING WITH AI...' : 'PARSE INTO KANBAN CARD'}</span>
-                      </button>
+                      </motion.button>
                     </div>
                   </div>
 
                   {/* Rendered Structured Kanban Card */}
-                  <div className="p-6 bg-surface-container-lowest border-2 border-primary rounded-sm shadow-[8px_8px_0px_0px_#bae6fd] space-y-4">
+                  <div className="p-6 bg-surface-container-lowest border-2 border-primary rounded-xs shadow-[8px_8px_0px_0px_var(--shadow-cyan-drop)] space-y-4">
                     <div className="flex items-center justify-between border-b border-outline-variant pb-3 font-mono text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 bg-primary text-on-primary font-bold rounded">
+                        <span className="px-2 py-0.5 bg-primary text-on-primary font-bold rounded-xs">
                           PRIORITY: {generatedCard.priority}
                         </span>
                         <span className="text-on-surface-variant font-bold">
@@ -454,7 +472,7 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
                       {generatedCard.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-0.5 bg-surface-container text-primary font-mono text-[11px] uppercase tracking-wider border border-outline-variant"
+                          className="px-2 py-0.5 bg-surface-container text-primary font-mono text-[11px] uppercase tracking-wider border border-outline-variant rounded-xs"
                         >
                           {tag}
                         </span>
@@ -467,10 +485,10 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
           )}
 
           {activeTab === 'code' && (
-            <div className="bg-[#191c1e] text-[#f7f9fb] p-5 rounded font-mono text-xs overflow-x-auto border border-outline-variant">
-              <div className="flex items-center justify-between pb-3 border-b border-neutral-700 mb-3 text-neutral-400">
+            <div className="bg-surface-container-lowest text-on-surface p-5 rounded-xs font-mono text-xs overflow-x-auto border border-outline-variant">
+              <div className="flex items-center justify-between pb-3 border-b border-outline-variant mb-3 text-on-surface-variant">
                 <span>{experiment.expNumber} // IMPLEMENTATION LOGIC</span>
-                <span className="text-primary-fixed-dim">TypeScript / Architecture</span>
+                <span className="text-primary font-bold">TypeScript / Architecture</span>
               </div>
               <pre>
                 <code>{experiment.codeSnippet}</code>
@@ -487,27 +505,27 @@ export const InteractiveLabModal: React.FC<InteractiveLabModalProps> = ({
                 {experiment.description} Designed for high availability, zero downtime during deploys, and automated recovery via idempotent webhook handlers and transactional outbox tables.
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono text-xs pt-2">
-                <div className="p-3 bg-surface-container border border-outline-variant rounded">
-                  <span className="text-outline block">RELIABILITY</span>
+                <div className="p-3 bg-surface-container border border-outline-variant rounded-xs">
+                  <span className="text-outline block font-semibold">RELIABILITY</span>
                   <span className="text-primary font-bold text-base">99.9%</span>
                 </div>
-                <div className="p-3 bg-surface-container border border-outline-variant rounded">
-                  <span className="text-outline block">SYNC LATENCY</span>
+                <div className="p-3 bg-surface-container border border-outline-variant rounded-xs">
+                  <span className="text-outline block font-semibold">SYNC LATENCY</span>
                   <span className="text-primary font-bold text-base">-68%</span>
                 </div>
-                <div className="p-3 bg-surface-container border border-outline-variant rounded">
-                  <span className="text-outline block">COVERAGE</span>
+                <div className="p-3 bg-surface-container border border-outline-variant rounded-xs">
+                  <span className="text-outline block font-semibold">COVERAGE</span>
                   <span className="text-primary font-bold text-base">180+ Tests</span>
                 </div>
-                <div className="p-3 bg-surface-container border border-outline-variant rounded">
-                  <span className="text-outline block">COMPLIANCE</span>
+                <div className="p-3 bg-surface-container border border-outline-variant rounded-xs">
+                  <span className="text-outline block font-semibold">COMPLIANCE</span>
                   <span className="text-primary font-bold text-base">FedRAMP/Audit</span>
                 </div>
               </div>
             </div>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

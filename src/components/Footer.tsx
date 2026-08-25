@@ -1,10 +1,11 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { ArrowUp, Heart, Terminal, Compass, Sparkles } from 'lucide-react';
 import { ScreenView } from '../types';
 
 interface FooterProps {
   onSelectView: (view: ScreenView) => void;
-  onOpenHire: () => void;
+  onOpenHire?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onSelectView, onOpenHire }) => {
@@ -22,7 +23,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView, onOpenHire }) => {
               <span className="font-display text-2xl md:text-3xl font-bold text-primary">
                 John Vincent Caballero
               </span>
-              <span className="font-mono text-xs px-2 py-0.5 bg-surface-container-lowest border border-primary/40 text-primary rounded-xs">
+              <span className="font-mono text-xs px-2 py-0.5 bg-surface-container-lowest border border-primary/40 text-primary rounded-xs shadow-xs">
                 PRODUCT DEV
               </span>
             </div>
@@ -44,36 +45,48 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView, onOpenHire }) => {
             </div>
             <ul className="space-y-2 font-mono text-xs text-on-surface-variant">
               <li>
-                <button
-                  onClick={() => onSelectView('screen5-works')}
-                  className="hover:text-primary hover:underline transition-colors cursor-pointer"
+                <motion.button
+                  whileHover={{ x: 3 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onSelectView('case-studies')}
+                  className="hover:text-primary transition-colors cursor-pointer text-left flex items-center gap-1"
                 >
-                  [01] Selected Works (2021—Present)
-                </button>
+                  <span className="text-primary opacity-60">›</span>
+                  <span>[01] Case Studies (2021—Present)</span>
+                </motion.button>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectView('screen3-about-labs')}
-                  className="hover:text-primary hover:underline transition-colors cursor-pointer"
+                <motion.button
+                  whileHover={{ x: 3 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onSelectView('projects')}
+                  className="hover:text-primary transition-colors cursor-pointer text-left flex items-center gap-1"
                 >
-                  [02] About & The Arsenal
-                </button>
+                  <span className="text-primary opacity-60">›</span>
+                  <span>[02] Projects & Experiments</span>
+                </motion.button>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectView('lab-sandbox')}
-                  className="hover:text-primary hover:underline transition-colors cursor-pointer"
+                <motion.button
+                  whileHover={{ x: 3 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onSelectView('about')}
+                  className="hover:text-primary transition-colors cursor-pointer text-left flex items-center gap-1"
                 >
-                  [03] The Laboratory (Outbox, QA & AI)
-                </button>
+                  <span className="text-primary opacity-60">›</span>
+                  <span>[03] About & The Arsenal</span>
+                </motion.button>
               </li>
               <li>
-                <button
-                  onClick={() => onSelectView('screen4-contact')}
-                  className="hover:text-primary hover:underline transition-colors cursor-pointer"
+                <motion.button
+                  whileHover={{ x: 3 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onSelectView('contact')}
+                  className="hover:text-primary transition-colors cursor-pointer text-left flex items-center gap-1"
                 >
-                  [04] Establish Resonance (Contact)
-                </button>
+                  <span className="text-primary opacity-60">›</span>
+                  <span>[04] Establish Resonance (Contact)</span>
+                </motion.button>
               </li>
             </ul>
           </div>
@@ -84,49 +97,56 @@ export const Footer: React.FC<FooterProps> = ({ onSelectView, onOpenHire }) => {
               EXTERNAL NETWORKS
             </div>
             <div className="flex flex-wrap gap-2 pt-1 font-mono text-xs">
-              <a
-                href="https://github.com/johnvincentcaballero"
+              <motion.a
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://github.com/JVCaballero"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface hover:text-primary transition-all rounded-xs"
+                className="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface hover:text-primary transition-all rounded-xs shadow-xs"
               >
                 GitHub ↗
-              </a>
-              <a
-                href="https://linkedin.com/in/johnvincentcaballero"
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+                href="https://www.linkedin.com/in/john-vincent-c-06814b111"
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface hover:text-primary transition-all rounded-xs"
+                className="px-3 py-1.5 bg-surface-container-lowest border border-outline-variant hover:border-primary text-on-surface hover:text-primary transition-all rounded-xs shadow-xs"
               >
                 LinkedIn ↗
-              </a>
-              <button
-                onClick={onOpenHire}
-                className="px-3 py-1.5 bg-primary text-on-primary hover:bg-secondary-container hover:text-primary transition-all rounded-xs font-bold cursor-pointer"
+              </motion.a>
+              <motion.button
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => onSelectView('contact')}
+                className="px-3.5 py-1.5 bg-primary text-on-primary hover:bg-secondary-container hover:text-primary transition-all rounded-xs font-bold cursor-pointer shadow-xs"
               >
-                Hire John Vincent ✦
-              </button>
+                Get In Touch ✦
+              </motion.button>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar: Copyright & Top Anchor */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-on-surface-variant">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-2">
             <span>© MMXXVI. Built for Production.</span>
-            <span className="opacity-40">•</span>
-            <span className="text-primary font-medium">Cebu, Philippines (Remote Ready)</span>
           </div>
 
-          <button
+          <motion.button
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.95 }}
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-primary hover:text-primary-container transition-colors group cursor-pointer"
+            className="flex items-center gap-1.5 text-primary hover:text-primary-container transition-colors group cursor-pointer font-bold"
           >
             <span>RETURN TO TOP</span>
-            <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
-          </button>
+            <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-1" />
+          </motion.button>
         </div>
       </div>
     </footer>
   );
 };
+

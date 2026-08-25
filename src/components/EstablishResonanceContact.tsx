@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { TransmissionLog } from '../types';
 import {
   Send,
@@ -11,6 +12,7 @@ import {
   Copy,
   Sparkles,
   ArrowRight,
+  Check,
 } from 'lucide-react';
 
 interface EstablishResonanceContactProps {
@@ -89,15 +91,12 @@ export const EstablishResonanceContact: React.FC<EstablishResonanceContactProps>
   return (
     <section
       id="contact-section"
-      className="py-24 md:py-32 px-6 md:px-12 lg:px-20 bg-surface border-t border-outline-variant relative overflow-hidden"
+      className="py-12 md:py-16 px-6 md:px-12 lg:px-20 bg-transparent relative z-10"
     >
-      {/* Subtle blueprint grid */}
-      <div className="absolute inset-0 bg-blueprint-grid opacity-25 pointer-events-none" />
-
       <div className="max-w-[1400px] mx-auto relative z-10">
-        {/* Section Header (Screen 4 Layout) */}
+        {/* Section Header */}
         <div className="mb-16 md:mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-lowest border border-primary/40 rounded-sm mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-lowest border border-primary/40 rounded-xs mb-4 shadow-xs">
             <Radio className="w-3.5 h-3.5 text-primary animate-pulse" />
             <span className="font-mono text-xs uppercase tracking-widest text-primary font-semibold">
               COMMUNICATION MATRIX // SEC. 03
@@ -108,7 +107,7 @@ export const EstablishResonanceContact: React.FC<EstablishResonanceContactProps>
             Establish{' '}
             <span className="relative inline-block">
               Resonance
-              {/* Cyan Highlight Underline */}
+              {/* Highlight Underline */}
               <span className="absolute -bottom-2 left-0 w-full h-3 bg-secondary-container -z-10 rounded-xs" />
             </span>
             .
@@ -121,9 +120,12 @@ export const EstablishResonanceContact: React.FC<EstablishResonanceContactProps>
 
         {/* Main Transmission Form & Status Console Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14 items-start">
-          {/* Left Column: Tactile Brutalist Contact Form (Screen 4) */}
+          {/* Left Column: Tactile Brutalist Contact Form */}
           <div className="lg:col-span-7">
-            <div className="bg-surface-container-lowest border-2 border-primary p-6 md:p-10 rounded-sm shadow-[10px_10px_0px_0px_#bae6fd] relative">
+            <motion.div
+              whileHover={{ y: -2 }}
+              className="bg-surface-container-lowest border-2 border-primary p-6 md:p-10 rounded-xs shadow-[10px_10px_0px_0px_var(--shadow-cyan-drop)] hover:shadow-[14px_14px_0px_0px_var(--shadow-cyan-drop)] transition-shadow duration-300 relative"
+            >
               {/* Corner Crosshairs */}
               <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-primary pointer-events-none" />
               <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-primary pointer-events-none" />
@@ -136,154 +138,176 @@ export const EstablishResonanceContact: React.FC<EstablishResonanceContactProps>
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                   <span className="font-bold">COMM LINK ACTIVE</span>
                 </span>
-                <span>TX_FREQ: 1420.405 MHZ</span>
+                <span className="font-mono text-xs">TX_FREQ: 1420.405 MHZ</span>
               </div>
 
-              {transmitted ? (
-                /* Success Message State */
-                <div className="py-12 text-center space-y-5 animate-in fade-in zoom-in-95 duration-300">
-                  <div className="w-16 h-16 bg-secondary-container/50 border border-primary rounded-full mx-auto flex items-center justify-center text-primary shadow-sm">
-                    <CheckCircle2 className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="font-display text-2xl md:text-3xl text-on-surface font-medium">
-                    Transmission Acknowledged
-                  </h3>
-                  <p className="font-body text-sm md:text-base text-on-surface-variant max-w-md mx-auto leading-relaxed">
-                    Your packet has been safely decrypted in South Wales. Robb will respond to your transmission shortly.
-                  </p>
-                  <div className="pt-2">
-                    <button
-                      onClick={handleResetForm}
-                      className="px-6 py-2.5 bg-primary text-on-primary font-mono text-xs uppercase tracking-widest rounded-sm hover:bg-secondary-container hover:text-primary transition-colors"
-                    >
-                      Send Another Transmission
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                /* Active Form */
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Designation (Name) */}
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="designation-input"
-                      className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
-                    >
-                      DESIGNATION // YOUR NAME *
-                    </label>
-                    <input
-                      id="designation-input"
-                      type="text"
-                      required
-                      placeholder="e.g. Ada Lovelace / Quantum Systems"
-                      value={formData.designation}
-                      onChange={(e) =>
-                        setFormData({ ...formData, designation: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs"
-                    />
-                  </div>
-
-                  {/* Comms Vector (Email) */}
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="email-input"
-                      className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
-                    >
-                      COMMS VECTOR // EMAIL ADDRESS *
-                    </label>
-                    <input
-                      id="email-input"
-                      type="email"
-                      required
-                      placeholder="e.g. contact@domain.org"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs"
-                    />
-                  </div>
-
-                  {/* Signal Frequency (Inquiry Type) */}
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="frequency-select"
-                      className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
-                    >
-                      SIGNAL FREQUENCY // PURPOSE
-                    </label>
-                    <select
-                      id="frequency-select"
-                      value={formData.frequency}
-                      onChange={(e) =>
-                        setFormData({ ...formData, frequency: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs"
-                    >
-                      <option value="PROJECT_INQUIRY">
-                        [Q1] Project Commission / Creative Development
-                      </option>
-                      <option value="WEBGL_CONSULT">
-                        [Q2] WebGL / 3D Canvas Architecture Consulting
-                      </option>
-                      <option value="DESIGN_SYSTEM">
-                        [Q3] Design System & Motion Choreography
-                      </option>
-                      <option value="TECHNICAL_DEBATE">
-                        [Q4] Technical Debate / General Salutation
-                      </option>
-                    </select>
-                  </div>
-
-                  {/* Payload (Message) */}
-                  <div className="space-y-1.5">
-                    <label
-                      htmlFor="payload-input"
-                      className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
-                    >
-                      PAYLOAD // MESSAGE SPECIFICATION *
-                    </label>
-                    <textarea
-                      id="payload-input"
-                      required
-                      rows={5}
-                      placeholder="Outline scope, timeline, requirements, or greetings..."
-                      value={formData.payload}
-                      onChange={(e) =>
-                        setFormData({ ...formData, payload: e.target.value })
-                      }
-                      className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs resize-y"
-                    />
-                  </div>
-
-                  {/* Transmit Button (Tactile Brutalist) */}
-                  <button
-                    type="submit"
-                    disabled={transmitting}
-                    className="w-full py-4 bg-primary text-on-primary font-mono text-xs uppercase tracking-widest font-bold brutal-btn border border-primary rounded-xs flex items-center justify-center gap-2 hover:bg-primary-container disabled:opacity-50"
+              <AnimatePresence mode="wait">
+                {transmitted ? (
+                  /* Success Message State */
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="py-12 text-center space-y-5"
                   >
-                    {transmitting ? (
-                      <>
-                        <span className="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                        <span>ENCRYPTING & TRANSMITTING...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>TRANSMIT PAYLOAD</span>
-                        <Send className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
+                    <div className="w-16 h-16 bg-secondary-container/50 border border-primary rounded-full mx-auto flex items-center justify-center text-primary shadow-xs">
+                      <CheckCircle2 className="w-8 h-8 text-primary" />
+                    </div>
+                    <h3 className="font-display text-2xl md:text-3xl text-on-surface font-medium">
+                      Transmission Acknowledged
+                    </h3>
+                    <p className="font-body text-sm md:text-base text-on-surface-variant max-w-md mx-auto leading-relaxed">
+                      Your packet has been safely received in Cebu. John Vincent will respond to your transmission shortly.
+                    </p>
+                    <div className="pt-2">
+                      <motion.button
+                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ y: -1 }}
+                        onClick={handleResetForm}
+                        className="px-6 py-2.5 bg-primary text-on-primary font-mono text-xs uppercase tracking-widest rounded-xs hover:bg-secondary-container hover:text-primary transition-colors cursor-pointer font-bold"
+                      >
+                        Send Another Transmission
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  /* Active Form */
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onSubmit={handleSubmit}
+                    className="space-y-6"
+                  >
+                    {/* Designation (Name) */}
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="designation-input"
+                        className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
+                      >
+                        DESIGNATION // YOUR NAME *
+                      </label>
+                      <input
+                        id="designation-input"
+                        type="text"
+                        required
+                        placeholder="e.g. Ada Lovelace / Quantum Systems"
+                        value={formData.designation}
+                        onChange={(e) =>
+                          setFormData({ ...formData, designation: e.target.value })
+                        }
+                        className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs transition-colors"
+                      />
+                    </div>
+
+                    {/* Comms Vector (Email) */}
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="email-input"
+                        className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
+                      >
+                        COMMS VECTOR // EMAIL ADDRESS *
+                      </label>
+                      <input
+                        id="email-input"
+                        type="email"
+                        required
+                        placeholder="e.g. contact@domain.org"
+                        value={formData.email}
+                        onChange={(e) =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
+                        className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs transition-colors"
+                      />
+                    </div>
+
+                    {/* Signal Frequency (Inquiry Type) */}
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="frequency-select"
+                        className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
+                      >
+                        SIGNAL FREQUENCY // PURPOSE
+                      </label>
+                      <select
+                        id="frequency-select"
+                        value={formData.frequency}
+                        onChange={(e) =>
+                          setFormData({ ...formData, frequency: e.target.value })
+                        }
+                        className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs transition-colors"
+                      >
+                        <option value="PROJECT_INQUIRY">
+                          [Q1] Project Commission / Creative Development
+                        </option>
+                        <option value="WEBGL_CONSULT">
+                          [Q2] Full-Stack Architecture / AI Automation Consulting
+                        </option>
+                        <option value="DESIGN_SYSTEM">
+                          [Q3] High-Velocity Product Engineering & CI/CD
+                        </option>
+                        <option value="TECHNICAL_DEBATE">
+                          [Q4] Technical Debate / General Salutation
+                        </option>
+                      </select>
+                    </div>
+
+                    {/* Payload (Message) */}
+                    <div className="space-y-1.5">
+                      <label
+                        htmlFor="payload-input"
+                        className="block font-mono text-xs uppercase tracking-widest text-primary font-semibold"
+                      >
+                        PAYLOAD // MESSAGE SPECIFICATION *
+                      </label>
+                      <textarea
+                        id="payload-input"
+                        required
+                        rows={5}
+                        placeholder="Outline scope, timeline, requirements, or greetings..."
+                        value={formData.payload}
+                        onChange={(e) =>
+                          setFormData({ ...formData, payload: e.target.value })
+                        }
+                        className="w-full px-4 py-3 bg-surface-container-low border border-outline-variant focus:border-primary font-mono text-sm text-on-surface brutal-input rounded-xs resize-y transition-colors"
+                      />
+                    </div>
+
+                    {/* Transmit Button (Tactile Brutalist) */}
+                    <motion.button
+                      whileTap={{ scale: 0.96 }}
+                      whileHover={{ y: -1 }}
+                      type="submit"
+                      disabled={transmitting}
+                      className="w-full py-4 bg-primary text-on-primary font-mono text-xs uppercase tracking-widest font-bold brutal-btn border border-primary rounded-xs flex items-center justify-center gap-2 hover:bg-primary-container disabled:opacity-50 cursor-pointer shadow-xs"
+                    >
+                      {transmitting ? (
+                        <>
+                          <span className="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                          <span>ENCRYPTING & TRANSMITTING...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>TRANSMIT PAYLOAD</span>
+                          <Send className="w-4 h-4" />
+                        </>
+                      )}
+                    </motion.button>
+                  </motion.form>
+                )}
+              </AnimatePresence>
+            </motion.div>
           </div>
 
           {/* Right Column: Direct Info, Coordinates & Terminal Packet Logs */}
           <div className="lg:col-span-5 space-y-6">
             {/* Direct Channel Card */}
-            <div className="bg-surface-container-lowest border border-outline-variant p-6 rounded-sm shadow-sm space-y-4">
+            <motion.div
+              whileHover={{ y: -2 }}
+              className="bg-surface-container-lowest border border-outline-variant p-6 rounded-xs shadow-xs space-y-4 hover:border-primary hover:shadow-[8px_8px_0px_0px_var(--shadow-cyan-drop)] transition-shadow duration-300"
+            >
               <div className="font-mono text-xs uppercase tracking-widest text-primary font-bold border-b border-outline-variant pb-2 flex items-center justify-between">
                 <span>DIRECT DISPATCH</span>
                 <Sparkles className="w-3.5 h-3.5 text-primary" />
@@ -296,17 +320,26 @@ export const EstablishResonanceContact: React.FC<EstablishResonanceContactProps>
                     <span className="font-mono text-xs uppercase text-outline block">
                       EMAIL VECTOR
                     </span>
-                    <button
+                    <motion.button
+                      whileTap={{ scale: 0.94 }}
                       onClick={handleCopyEmail}
                       className="font-mono text-sm text-on-surface font-semibold hover:text-primary transition-colors flex items-center gap-1.5 text-left cursor-pointer"
                     >
                       <span>jv.caballero@outlook.com</span>
-                      <Copy className="w-3.5 h-3.5 text-outline hover:text-primary" />
-                    </button>
+                      {copiedEmail ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-600 font-bold" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5 text-outline hover:text-primary" />
+                      )}
+                    </motion.button>
                     {copiedEmail && (
-                      <span className="font-mono text-[10px] text-emerald-600 font-bold block">
+                      <motion.span
+                        initial={{ opacity: 0, y: -2 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold block"
+                      >
                         COPIED TO CLIPBOARD ✓
-                      </span>
+                      </motion.span>
                     )}
                   </div>
                 </div>
@@ -335,24 +368,33 @@ export const EstablishResonanceContact: React.FC<EstablishResonanceContactProps>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Terminal Live Packet Log */}
-            <div className="bg-[#191c1e] text-[#f7f9fb] p-5 rounded-sm border border-outline-variant font-mono text-xs shadow-md">
-              <div className="flex items-center justify-between pb-3 border-b border-neutral-700 mb-3 text-neutral-400 text-[11px]">
+            <div className="bg-surface-container-lowest text-on-surface p-5 rounded-xs border border-outline-variant font-mono text-xs shadow-xs">
+              <div className="flex items-center justify-between pb-3 border-b border-outline-variant mb-3 text-on-surface-variant text-[11px]">
                 <div className="flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-secondary-container" />
+                  <Terminal className="w-3.5 h-3.5 text-secondary" />
                   <span>TRANSMISSION_TERMINAL // V2</span>
                 </div>
-                <span className="text-emerald-400 font-bold">LIVE</span>
+                <span className="text-emerald-500 font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>LIVE</span>
+                </span>
               </div>
 
               <div className="space-y-1.5 text-[11px] leading-relaxed max-h-48 overflow-y-auto">
                 {packetLogs.map((log, idx) => (
-                  <div key={idx} className="flex gap-2">
-                    <span className="text-secondary-container select-none">&gt;</span>
-                    <span className="text-neutral-300">{log}</span>
-                  </div>
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex gap-2"
+                  >
+                    <span className="text-primary select-none font-bold">&gt;</span>
+                    <span className="text-on-surface-variant">{log}</span>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -362,3 +404,4 @@ export const EstablishResonanceContact: React.FC<EstablishResonanceContactProps>
     </section>
   );
 };
+
